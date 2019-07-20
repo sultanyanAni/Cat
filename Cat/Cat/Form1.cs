@@ -86,30 +86,40 @@ namespace Cat
             gfx.FillEllipse(Brushes.SandyBrown, 320, 285, 40, 40);
             gfx.FillEllipse(Brushes.SaddleBrown, 315, 300, 40, 40);
             gfx.FillEllipse(Brushes.SandyBrown, 315, 295, 40, 40);
-
+            GraphicsPath leftEar = new GraphicsPath();
+            leftEar.AddArc(300, 280, 30, 30, 175, 100);
+            gfx.FillPath(Brushes.SandyBrown, leftEar);
+            leftEar.CloseFigure();
+            leftEar.AddArc(300, 280, 10, 10, 175, 100);
+            gfx.FillPath(Brushes.SaddleBrown, leftEar);
             //leftEye
             GraphicsPath leftEyePath = new GraphicsPath();
-            leftEyePath.AddEllipse(321, 306, 7, 5);
+            leftEyePath.AddEllipse(321, 300, 7, 5);
             PathGradientBrush eyeBrush = new PathGradientBrush(leftEyePath);
             eyeBrush.CenterColor = Color.Gold;
             Color[] eyeColors = { Color.SaddleBrown};
             eyeBrush.SurroundColors = eyeColors;
-            gfx.FillEllipse(Brushes.Black, 320, 306, 10, 6);
+            gfx.FillEllipse(Brushes.Black, 320, 300, 10, 6);
             gfx.FillPath(eyeBrush,leftEyePath);
-            gfx.FillEllipse(Brushes.Black, 323, 307, 3, 3);
+            gfx.FillEllipse(Brushes.Black, 323, 301, 3, 3);
 
             //rightEye
             GraphicsPath  rightEyePath = new GraphicsPath();
-            rightEyePath.AddEllipse(342, 306, 7, 5);
+            rightEyePath.AddEllipse(342, 300, 7, 5);
             eyeBrush = new PathGradientBrush(rightEyePath);
             eyeBrush.CenterColor = Color.Gold;
             eyeBrush.SurroundColors = eyeColors;
-
-            gfx.FillEllipse(Brushes.Black, 340, 306, 10, 6);
+            gfx.FillEllipse(Brushes.Black, 340, 300, 10, 6);
             gfx.FillPath(eyeBrush, rightEyePath);
-            gfx.FillEllipse(Brushes.Black, 344, 307, 3, 3);
+            gfx.FillEllipse(Brushes.Black, 344, 301, 3, 3);
+            //329,316
 
-
+            //nose + mouth
+            gfx.DrawArc(Pens.SaddleBrown, 320, 310, 30, 20, 0, -180);
+            gfx.FillPolygon(Brushes.Black, new Point[] { new Point(329, 316), new Point(341, 316), new Point(335, 320) });
+            gfx.DrawLine(Pens.Black, new Point(335, 320), new Point(335, 330));
+            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325),  new Point(340, 330), new Point(342, 330),new Point(345, 325) });
+            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(330, 330), new Point(328, 330), new Point(325, 325) });
             gfx.FillRectangle(Brushes.SaddleBrown, ClientSize.Width - 100, ClientSize.Height / 2, 100, ClientSize.Height - 100);
 
             //FILLING A PATH
