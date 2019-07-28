@@ -158,11 +158,30 @@ namespace Cat
             //body
             //365,343
             //320,343
-
+            Point[] backPoints =
+            {
+                new Point(365,343),
+                new Point(370,343),
+                new Point(375,353),
+                new Point(380,363),
+                new Point(385,373),
+                new Point(390,383),
+                new Point(395,393),
+                new Point(400,403),
+                new Point(320,403),
+                new Point(317,343)
+            };
             GraphicsPath back = new GraphicsPath();
-            back.AddCurve(new Point[] { new Point(365,343), new Point(373,353), new Point(383,363), new Point()});
-            gfx.FillPath(Brushes.Black, back);
+            back.AddCurve(backPoints);
+        
+            gfx.FillPath(Brushes.SandyBrown, back);
 
+            GraphicsPath leg = new GraphicsPath();
+            leg.AddArc(350, 380, 50, 50, 160, 185);
+            gfx.FillPath(Brushes.SaddleBrown, leg);
+            //gfx.DrawArc(Pens.SaddleBrown, )
+            //gfx.DrawLine(Pens.SaddleBrown, 320, 360, 320, 403);
+            //gfx.DrawLine(Pens.SaddleBrown, 330, 360, 330, 403);
 
 
         }
