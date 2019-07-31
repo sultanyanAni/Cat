@@ -89,9 +89,8 @@ namespace Cat
 
             //*Cat*//
 
-
-
             #region Body
+            
             Point[] backPoints =
             {
 
@@ -109,19 +108,21 @@ namespace Cat
             GraphicsPath back = new GraphicsPath();
             back.AddCurve(backPoints);
             gfx.FillPath(Brushes.SandyBrown, back);
+          
             #region Head
-            GraphicsPath Back = new GraphicsPath();
-            Back.AddCurve(new Point[] { new Point(355, 315), new Point(355, 333), new Point(365, 343), new Point(320, 343), new Point(320, 320), new Point(320, 315) });
-            gfx.FillPath(Brushes.SandyBrown, Back);
-            //shadow of neck
-            gfx.FillEllipse(Brushes.SaddleBrown, 315, 300, 40, 40);
+
             //Hair
             Hair(305, 275);
             //top of head   
             gfx.FillEllipse(Brushes.SandyBrown, 310, 285, 40, 40);
             gfx.FillEllipse(Brushes.SandyBrown, 320, 285, 40, 40);
-            //start of Neck/Back Area
+            //nose + mouth
             gfx.FillEllipse(Brushes.SandyBrown, 315, 295, 40, 40);
+            gfx.DrawArc(Pens.SaddleBrown, 320, 310, 30, 20, 0, -180);
+            gfx.FillPolygon(Brushes.Black, new Point[] { new Point(329, 316), new Point(341, 316), new Point(335, 320) });
+            gfx.DrawLine(Pens.Black, new Point(335, 320), new Point(335, 330));
+            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(340, 330), new Point(342, 330), new Point(345, 325) });
+            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(330, 330), new Point(328, 330), new Point(325, 325) });
 
             //leftEar
             int leftX = 305;
@@ -132,6 +133,7 @@ namespace Cat
             GraphicsPath innerLeftEar = new GraphicsPath();
             innerLeftEar.AddArc(leftX + 3, leftY + 3, 20, 20, 170, 100);
             gfx.FillPath(Brushes.SaddleBrown, innerLeftEar);
+
             //rightEar
             int rightX = 335;
             int rightY = 280;
@@ -163,17 +165,7 @@ namespace Cat
             gfx.FillPath(eyeBrush, rightEyePath);
             gfx.FillEllipse(Brushes.Black, 344, 301, 3, 3);
 
-
-            //nose + mouth
-            gfx.DrawArc(Pens.SaddleBrown, 320, 310, 30, 20, 0, -180);
-            gfx.FillPolygon(Brushes.Black, new Point[] { new Point(329, 316), new Point(341, 316), new Point(335, 320) });
-            gfx.DrawLine(Pens.Black, new Point(335, 320), new Point(335, 330));
-            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(340, 330), new Point(342, 330), new Point(345, 325) });
-            gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(330, 330), new Point(328, 330), new Point(325, 325) });
-            
-            //mouth area
             #endregion
-
 
             //front right leg
             gfx.DrawLine(Pens.SaddleBrown, 315, 360, 315, 403);
@@ -222,11 +214,10 @@ namespace Cat
             };
             gfx.DrawCurve(new Pen(Brushes.SandyBrown, 10), tailPoints);
 
-            //tip of tail
+                //tip of tail
             GraphicsPath tail = new GraphicsPath();
             tail.AddArc(380,431,10,10,275,-180);
             gfx.FillPath(Brushes.SandyBrown, tail);
-
          
             gfx.FillEllipse(Brushes.Chocolate, 375, 430, 15, 15);
             gfx.FillPolygon(Brushes.Chocolate, new Point[] { new Point(380, 430), new Point(360, 440), new Point(380, 445) });
