@@ -24,18 +24,14 @@ namespace Cat
             gfx = CreateGraphics();
         }
 
-        void Hair(int x, int y)
+        void Hair(int x, int y, int start = 0, int sweep = 360)
         {
-            float numberOfPoints = 12.0f;
-            float angle = 360 / numberOfPoints;
-            int radius = 70;
+            int radius = 60;
             Point origin = new Point(x + radius / 2, y + radius / 2);
-            gfx.DrawEllipse(Pens.Red, x, y, radius, radius);
-            gfx.DrawLine(Pens.BlueViolet, x + radius, y + radius / 2, x, y + radius / 2);
-            gfx.DrawLine(Pens.BlueViolet, x + radius / 2, y, x + radius / 2, y + radius);
+
 
             //start at 0 degrees and spin in a full circle
-            for (int i = 0; i < 360; i++)
+            for (int i = start; i < sweep; i++)
             {
                 //to find the end point's X we have to multiply the radius by the Cos of the angle. To translate the lines to the center of the head, we need to add the origin's X
                 double endX = (radius * Math.Cos(i)) + origin.X;
@@ -45,7 +41,7 @@ namespace Cat
                 gfx.DrawLine(Pens.Chocolate, origin.X, origin.Y, (float)endX, (float)endY);
             }
             //offset by 2 degrees to add highlights
-            for (int i = 0; i < 360; i += 2)
+            for (int i = start; i < sweep; i += 2)
             {
                 double endX = (radius * Math.Cos(i)) + origin.X;
                 double endY = (radius * Math.Sin(i)) + origin.Y;
@@ -92,19 +88,41 @@ namespace Cat
             #endregion
 
             //*Cat*//
+
+
+
+            #region Body
+            Point[] backPoints =
+            {
+
+               new Point(365,343),
+                new Point(373,353),
+                new Point(375,363),
+                new Point(376,370),
+                new Point(377,373),
+                new Point(380,383),
+                new Point(383,393),
+                new Point(390,403),
+                new Point(320,403),
+                new Point(317,343)
+            };
+            GraphicsPath back = new GraphicsPath();
+            back.AddCurve(backPoints);
+            gfx.FillPath(Brushes.SandyBrown, back);
             #region Head
-            Hair(300, 275);
-            //top of head
-            gfx.FillEllipse(Brushes.SandyBrown, 310, 285, 40, 40);
-            gfx.FillEllipse(Brushes.SandyBrown, 320, 285, 40, 40);
-            //start of Neck/Back Area
             GraphicsPath Back = new GraphicsPath();
-            Back.AddCurve(new Point[] { new Point(355,315), new Point(355,333), new Point(365,343), new Point(320,343), new Point(320,320), new Point(320, 315)});
+            Back.AddCurve(new Point[] { new Point(355, 315), new Point(355, 333), new Point(365, 343), new Point(320, 343), new Point(320, 320), new Point(320, 315) });
             gfx.FillPath(Brushes.SandyBrown, Back);
             //shadow of neck
             gfx.FillEllipse(Brushes.SaddleBrown, 315, 300, 40, 40);
-            //mouth area
+            //Hair
+            Hair(305, 275);
+            //top of head   
+            gfx.FillEllipse(Brushes.SandyBrown, 310, 285, 40, 40);
+            gfx.FillEllipse(Brushes.SandyBrown, 320, 285, 40, 40);
+            //start of Neck/Back Area
             gfx.FillEllipse(Brushes.SandyBrown, 315, 295, 40, 40);
+
             //leftEar
             int leftX = 305;
             int leftY = 280;
@@ -152,36 +170,68 @@ namespace Cat
             gfx.DrawLine(Pens.Black, new Point(335, 320), new Point(335, 330));
             gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(340, 330), new Point(342, 330), new Point(345, 325) });
             gfx.DrawCurve(Pens.Black, new Point[] { new Point(335, 325), new Point(330, 330), new Point(328, 330), new Point(325, 325) });
-
+            
+            //mouth area
             #endregion
 
-            //body
-            //365,343
-            //320,343
-            Point[] backPoints =
-            {
-                new Point(365,343),
-                new Point(370,343),
-                new Point(375,353),
-                new Point(380,363),
-                new Point(385,373),
-                new Point(390,383),
-                new Point(395,393),
-                new Point(400,403),
-                new Point(320,403),
-                new Point(317,343)
-            };
-            GraphicsPath back = new GraphicsPath();
-            back.AddCurve(backPoints);
-        
-            gfx.FillPath(Brushes.SandyBrown, back);
 
+            //front right leg
+            gfx.DrawLine(Pens.SaddleBrown, 315, 360, 315, 403);
+            gfx.DrawLine(Pens.SaddleBrown, 325, 360, 325, 403);
+            GraphicsPath rightFoot = new GraphicsPath();
+            rightFoot.AddArc(305, 400, 40, 10, 270, -180);
+            gfx.FillPath(Brushes.SandyBrown, rightFoot);
+
+            //front left leg
+            gfx.DrawLine(Pens.SaddleBrown, 330, 360, 330, 403);
+            gfx.DrawLine(Pens.SaddleBrown, 340, 360, 340, 403);
+            GraphicsPath leftFoot = new GraphicsPath();
+            leftFoot.AddArc(325, 400, 40, 13, 200, -180);
+            gfx.FillPath(Brushes.SandyBrown, leftFoot);
+            gfx.DrawPath(Pens.SaddleBrown, leftFoot);
+
+            //backleg
             GraphicsPath leg = new GraphicsPath();
-            leg.AddArc(350, 380, 50, 50, 160, 185);
-            gfx.FillPath(Brushes.SaddleBrown, leg);
-            //gfx.DrawArc(Pens.SaddleBrown, )
-            //gfx.DrawLine(Pens.SaddleBrown, 320, 360, 320, 403);
-            //gfx.DrawLine(Pens.SaddleBrown, 330, 360, 330, 403);
+            leg.AddArc(345, 375, 50, 70, 180, 175);
+            gfx.FillPath(Brushes.SandyBrown, leg);
+            leg = new GraphicsPath();
+            leg.AddArc(345, 375, 50, 60, 280, -100);
+            gfx.DrawPath(Pens.SaddleBrown, leg);
+            GraphicsPath backFoot = new GraphicsPath();
+            backFoot.AddArc(335, 405, 122, 10, 270, -180);
+            gfx.FillPath(Brushes.SandyBrown, backFoot);
+            backFoot = new GraphicsPath();
+            backFoot.AddArc(335, 405, 80, 10, 270, -180);
+            gfx.DrawPath(Pens.SaddleBrown, backFoot);
+
+            //Tail
+            Point[] tailPoints =
+            {
+                new Point(390, 405),
+                new Point(400, 405),
+                new Point(410, 410),
+                new Point(412, 415),
+                new Point(410, 420),
+                new Point(405, 425),
+                new Point(400,430),
+                new Point(395,432),
+                new Point(390,435),
+                new Point(385,435)
+        
+
+            };
+            gfx.DrawCurve(new Pen(Brushes.SandyBrown, 10), tailPoints);
+
+            //tip of tail
+            GraphicsPath tail = new GraphicsPath();
+            tail.AddArc(380,431,10,10,275,-180);
+            gfx.FillPath(Brushes.SandyBrown, tail);
+
+         
+            gfx.FillEllipse(Brushes.Chocolate, 375, 430, 15, 15);
+            gfx.FillPolygon(Brushes.Chocolate, new Point[] { new Point(380, 430), new Point(360, 440), new Point(380, 445) });
+            #endregion
+
 
 
         }
